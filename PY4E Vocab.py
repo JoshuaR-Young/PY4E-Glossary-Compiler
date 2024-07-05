@@ -26,3 +26,15 @@ CREATE TABLE IF NOT EXISTS glossary (
     definition TEXT NOT NULL
 );
 '''
+cursor.execute(create_table_query)
+
+#insert data into table
+insert_data_query = '''
+INSERT INTO glossary (term, definition) VALUES (?, ?)
+ON CONFLICT(term) DO NOTHING;
+'''
+cursor.executemany(insert_data_query, terms_definitions)
+
+#commit changes and close
+conn.commit()
+conn.close()
