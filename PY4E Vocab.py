@@ -30,10 +30,11 @@ cursor.execute(create_table_query)
 
 # Insert data into table
 insert_data_query = '''
-INSERT INTO glossary (term, definition) VALUES (?, ?);
+INSERT OR IGNORE INTO glossary (term, definition) VALUES (?, ?);
 '''
 cursor.executemany(insert_data_query, terms_definitions)
 
 # Commit changes and close
 conn.commit()
 conn.close()
+
